@@ -1,8 +1,8 @@
 //variables
 const client = contentful.createClient({
-    // This is the space ID. A space is like a project folder in Contentful terms
+// This is the space ID.
     space: "vb815sspjs12",
-    // This is the access token for this space. Normally you get both ID and the token in the Contentful web app
+// This is the access token for this space.
     accessToken: 
     "XznB6z10fDttML83L0qI7V9I-_68byBZER1ka1zcyW8"
   });
@@ -29,16 +29,13 @@ class Products {
             let contentful = await client.getEntries({
                 content_type: "cupcake"
             });
-            
-            //let result = await fetch('products.json');
-            //let data = await result.json();
-            
+         
             let products = contentful.items;
-            products = products.map(item => {
-                const {title, price} = item.fields;
-                const {id} = item.sys;
-                const image = item.fields.image.fields.file.url;
-                return {title,price,id,image};
+                products = products.map(item => {
+                    const {title, price} = item.fields;
+                     const {id} = item.sys;
+                        const image = item.fields.image.fields.file.url;
+             return {title,price,id,image};
             });
             console.log(products);
 
@@ -106,21 +103,21 @@ class UI {
         cartTotal.innerText = parseFloat(tempTotal.toFixed(2));
         cartItems.innerText = itemsTotal;
     }
-        addCartItem(item){
-    const div = document.createElement('div');
-    div.classList.add('cart-item');
-    div.innerHTML = `<img src=${item.image}
-    alt="product" />
-<div>
-    <h4>${item.title}</h4>
-    <h5>$${item.price}</h5>
-    <span class="remove-item" data-id=${item.id}>remove</span>
-</div>
-<div>
-    <i class="fas fa-chevron-up" data-id=${item.id}></i>
-    <p class="item-amount">${item.amount}</p>
-    <i class="fas fa-chevron-down" data-id=${item.id}></i>
-</div>`;
+     addCartItem(item){
+        const div = document.createElement('div');
+        div.classList.add('cart-item');
+        div.innerHTML = `<img src=${item.image}
+        alt="product" />
+    <div>
+        <h4>${item.title}</h4>
+            <h5>$${item.price}</h5>
+                <span class="remove-item" data-id=${item.id}>remove</span>
+    </div>
+    <div>
+        <i class="fas fa-chevron-up" data-id=${item.id}></i>
+            <p class="item-amount">${item.amount}</p>
+                <i class="fas fa-chevron-down" data-id=${item.id}></i>
+    </div>`;
     cartContent.appendChild(div);
     }
     showCart() {
@@ -147,7 +144,7 @@ class UI {
     });
 //cart functionality
     cartContent.addEventListener('click', event=>{
-       if (event.target.classList.contains('remove-item')){
+        if (event.target.classList.contains('remove-item')){
         let removeItem = event.target;
         let id = removeItem.dataset.id;
         cart = cart.filter(item => item.id !== id);
@@ -163,15 +160,15 @@ class UI {
                 button.innerHTML = `<i class="fas fa-shopping-cart"></i>add to cart`;
     }
 });
-}   else if(event.target.classList.contains("fa-chevron-up")){
-let addAmount = event.target;
-let id = addAmount.dataset.id;
-let tempItem = cart.find(item => item.id===id);
-tempItem.amount = tempItem.amount + 1;
-Storage.saveCart(cart);
-this.setCartValues(cart);
-addAmount.nextElementSibling.innerText =
-tempItem.amount;
+}       else if(event.target.classList.contains("fa-chevron-up")){
+        let addAmount = event.target;
+        let id = addAmount.dataset.id;
+        let tempItem = cart.find(item => item.id===id);
+        tempItem.amount = tempItem.amount + 1;
+        Storage.saveCart(cart);
+        this.setCartValues(cart);
+        addAmount.nextElementSibling.innerText =
+        tempItem.amount;
        } 
        else if (event.target.classList.contains("fa-chevron-down")){
            let lowerAmount = event.target;
@@ -213,7 +210,6 @@ tempItem.amount;
         this.hideCart();
     }
 }
-
 //local storage
 class Storage {
     static saveProducts(products) {
